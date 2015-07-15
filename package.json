@@ -1,0 +1,31 @@
+{
+  "name": "musical-note",
+  "version": "0.1.0",
+  "description": "(Wester well-tempered) musical notes",
+  "main": "note.js",
+  "scripts": {
+    "test": "vows test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danigb/musical-note.git"
+  },
+  "keywords": [
+    "note",
+    "music",
+    "theory",
+    "pitch",
+    "midi",
+    "transpose",
+    "interval"
+  ],
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danigb/musical-note/issues"
+  },
+  "homepage": "https://github.com/danigb/musical-note#readme",
+  "devDependencies": {
+    "vows": "^0.8.1"
+  }
+}
