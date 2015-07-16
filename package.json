@@ -27,5 +27,9 @@
   "homepage": "https://github.com/danigb/musical-note#readme",
   "devDependencies": {
     "vows": "^0.8.1"
+  },
+  "dependencies": {
+    "enharmonics": "file:../enharmonics",
+    "musical-interval": "^0.1.0"
   }
 }
