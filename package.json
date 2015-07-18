@@ -29,7 +29,7 @@
     "vows": "^0.8.1"
   },
   "dependencies": {
-    "enharmonics": "file:../enharmonics",
-    "musical-interval": "^0.1.0"
+    "enharmonics": "^0.2.0",
+    "musical-interval": "^0.2.0"
   }
 }

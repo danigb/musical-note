@@ -1,5 +1,6 @@
 'use strict'
 
+var steps = require('./note-steps.js')
 var enharmonics = require('enharmonics')
 var Interval = require('musical-interval')
 
@@ -27,17 +28,25 @@ Note.prototype.enharmonics = function () {
   return enharmonics(this.name, this.oct)
 }
 
-var PITCHCLASSES = 'CDEFGABCDEFGAB'
 Note.prototype.transpose = function (interval) {
   interval = new Interval(interval)
-  var index = PITCHCLASSES.indexOf(this.name[0])
-  var pitchClass = PITCHCLASSES[index + interval.num - 1]
+  var pitchClass = steps(this.name[0], interval.num)
   var midi = this.midi + interval.dist + 12 * interval.oct
   return Note.fromMidi(midi, pitchClass)
+}
+
+Note.prototype.distance = function (note) {
+  if (!(note instanceof Note)) note = new Note(note)
+  var distance = note.midi - this.midi
+  var num = '' + steps(this.name[0], note.name[0], distance < 0)
+  var name = Interval.names(distance).filter(function (name) {
+    return name.indexOf(num) > 0
+  })
+  return Interval(name)
 }
 
 Note.fromMidi = function (midi, pitchClass) {
   var name = CHROMATIC[midi % 12]
   var oct = Math.floor(midi / 12) - 1
-  return new Note(pitchClass && pitchClass !== name[0] ? enharmonics(name, oct, pitchClass)[0] : name + oct)
+  return new Note(pitchClass ? enharmonics(name, oct, pitchClass)[0] : name + oct)
 }
