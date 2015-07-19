@@ -11,7 +11,9 @@ var CHROMATIC = 'C Db D Eb E F F# G Ab A Bb B'.split(' ')
 var SEMITONES = {C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 }
 
 function Note (name) {
-  if (!(this instanceof Note)) return new Note(name)
+  if (!(this instanceof Note)) {
+    return name instanceof Note ? name : new Note(name)
+  }
 
   var match = NOTE.exec(name)
   if (!match) throw Error('Invalid note name: ' + name)
@@ -29,24 +31,24 @@ Note.prototype.enharmonics = function () {
 }
 
 Note.prototype.transpose = function (interval) {
-  interval = new Interval(interval)
+  interval = Interval(interval)
   var pitchClass = steps(this.name[0], interval.num)
   var midi = this.midi + interval.dist + 12 * interval.oct
-  return Note.fromMidi(midi, pitchClass)
+  return Note.midiName(midi, pitchClass)
 }
 
 Note.prototype.distance = function (note) {
-  if (!(note instanceof Note)) note = new Note(note)
+  note = Note(note)
   var distance = note.midi - this.midi
   var num = '' + steps(this.name[0], note.name[0], distance < 0)
   var name = Interval.names(distance).filter(function (name) {
     return name.indexOf(num) > 0
   })
-  return Interval(name)
+  return name
 }
 
-Note.fromMidi = function (midi, pitchClass) {
+Note.midiName = function (midi, pitchClass) {
   var name = CHROMATIC[midi % 12]
   var oct = Math.floor(midi / 12) - 1
-  return new Note(pitchClass ? enharmonics(name, oct, pitchClass)[0] : name + oct)
+  return pitchClass ? enharmonics(name, oct, pitchClass)[0] : name + oct
 }

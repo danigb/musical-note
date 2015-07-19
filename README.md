@@ -32,11 +32,20 @@ Create a note object from string. The note object has the following properties:
 
 ### note.transpose(interval)
 
-Returns the a note transposed the given interval
+Returns the name of the note transposed by an interval
 
-### Note.distance(note)
+```js
+Note('C4').transpose('M2') // => 'D4'
+```
 
-Returns an interval with the distance from the current note to the given one.
+### note.distance(note)
+
+Returns an interval name of the distance from the note to the given one.
+
+```js
+Note('C4').distance('D4') // => 'M2'
+```
+
 ### note.enharmonics()
 
 Returns an array of strings with the note enharmonics. For example:

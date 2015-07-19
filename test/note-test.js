@@ -16,25 +16,25 @@ vows.describe('Note').addBatch({
     assert.equal(new Note('a4').freq, 440)
   },
   'from midi': function () {
-    assert.deepEqual(Note.fromMidi(60), new Note('C4'))
-    assert.deepEqual(Note.fromMidi(69), new Note('A4'))
-    assert.deepEqual(Note.fromMidi(70), new Note('Bb4'))
-    assert.deepEqual(Note.fromMidi(72), new Note('C5'))
-    assert.deepEqual(Note.fromMidi(72, 'C'), new Note('C5'))
-    assert.deepEqual(Note.fromMidi(72, 'B'), new Note('B#4'))
+    assert.equal(Note.midiName(60), 'C4')
+    assert.equal(Note.midiName(69), 'A4')
+    assert.equal(Note.midiName(70), 'Bb4')
+    assert.equal(Note.midiName(72), 'C5')
+    assert.equal(Note.midiName(72, 'C'), 'C5')
+    assert.equal(Note.midiName(72, 'B'), 'B#4')
   },
   'simple note transposition': function () {
-    assert.deepEqual(Note('c2').transpose('M2'), new Note('d2'))
-    assert.deepEqual(Note('c2').transpose('M-2'), new Note('Bb1'))
-    assert.deepEqual(Note('c2').transpose('A-2'), new Note('Bbb1'))
-    assert.deepEqual(Note('c2').transpose('M16'), new Note('d4'))
-    assert.deepEqual(Note('c2').transpose('M-16'), new Note('Bb-1'))
-    assert.deepEqual(Note('e2').transpose('M2'), new Note('f#2'))
-    assert.deepEqual(Note('a2').transpose('M3'), new Note('c#3'))
-    assert.deepEqual(Note('a2').transpose('d5'), new Note('eb3'))
+    assert.equal(Note('c2').transpose('M2'), 'D2')
+    assert.equal(Note('c2').transpose('M-2'), 'Bb1')
+    assert.equal(Note('c2').transpose('A-2'), 'Bbb1')
+    assert.equal(Note('c2').transpose('M16'), 'D4')
+    assert.equal(Note('c2').transpose('M-16'), 'Bb-1')
+    assert.equal(Note('e2').transpose('M2'), 'F#2')
+    assert.equal(Note('a2').transpose('M3'), 'C#3')
+    assert.equal(Note('a2').transpose('d5'), 'Eb3')
   },
   'distance': function () {
-    assert.equal(Note('a2').distance('c#3').name, 'M3')
-    assert.equal(Note('a3').distance('a2').name, 'P-8')
+    assert.equal(Note('a2').distance('c#3'), 'M3')
+    assert.equal(Note('a3').distance('a2'), 'P-8')
   }
 }).export(module)
